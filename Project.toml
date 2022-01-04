@@ -1,0 +1,17 @@
+name = "GeometricTheoremProver"
+uuid = "062a9fb7-5fc8-4fbd-8cf8-781465e7dec7"
+authors = ["Luca Ferranti"]
+version = "0.1.0"
+
+[deps]
+DynamicPolynomials = "7c1d4256-1411-5781-91ec-d7bc3513ac07"
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
+
+[compat]
+julia = "1.6, 1.7"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
