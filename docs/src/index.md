@@ -39,18 +39,21 @@ POINTS:
 ------------
 A : free
 B : free
-C : free
-H : dependent by (1)
-K : dependent by (2)
-T : dependent by (3)
-O : dependent by (4)
+C : semifree by (1)
+M₁ : dependent by (2)
+M₂ : dependent by (3)
+M₃ : dependent by (4)
+O : dependent by (5)
+H : dependent by (6)
 
 HYPOTHESIS:
 ------------
-(1) H ∈ BC ∧ AH ⟂ BC
-(2) K ∈ AC ∧ BK ⟂ AC
-(3) T ∈ AB ∧ CT ⟂ AB
-(4) O = AH ∩ BK
+(1) AB ⟂ AC
+(2) M₁ ∈ AB ∧ AM₁ ≅ M₁B
+(3) M₂ ∈ BC ∧ BM₂ ≅ M₂C
+(4) M₃ ∈ AC ∧ AM₃ ≅ M₃C
+(5) OM₁ ≅ OM₂ ≅ OM₃
+(6) H ∈ BC ∧ AH ⟂ BC
 ```
 
 ```julia
