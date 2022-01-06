@@ -15,16 +15,20 @@ function show(io::IO, rwp::RittWuProof)
     for (P, c) in rwp.coords
         println(io, P, " = ", c)
     end
-    println("")
     for (idx, p) in enumerate(eachcol(rwp.R))
         status = iszero(first(p)) ? "success" : "fail"
         println(io, "Goal $idx: $status")
     end
+    println("\nNondegeneracy conditions:")
+    println("-------------------------")
+    for c in ndg(rwp)
+        show(io, c)
+        println()
+    end
 end
 
-function prove(hp::Hypothesis, th::Thesis, ::Type{RittWuMethod})
-    coords, x, u = assign_variables(hp)
-    H = [cc for c in hp.constraints for cc in algebry(c, coords)]
+function prove(hp::Hypothesis, th::Thesis, ::Type{RittWuMethod}, coords, u, x)
+    H = [cc for c in hp.constraints for cc in algebry(c, coords) if !iszero(cc)]
     G = [cc for c in th.constraints for cc in algebry(c, coords)]
     T = triangulize(copy(H), x)
 
@@ -39,4 +43,10 @@ function prove(hp::Hypothesis, th::Thesis, ::Type{RittWuMethod})
     return RittWuProof(coords, H, T, R, u, x)
 end
 
+function prove(hp::Hypothesis, th::Thesis, ::Type{RittWuMethod})
+    coords, x, u = assign_variables(hp)
+    return prove(hp, th, RittWuMethod, coords, u, x)
+end
+
 isproved(rwp::RittWuProof) = [iszero(first(p)) for p in eachcol(rwp.R)]
+ndg(p::RittWuProof) = [LC(t, xi) for (t, xi) in zip(p.T, p.x) if maxdegree(LC(t, xi)) != 0]
