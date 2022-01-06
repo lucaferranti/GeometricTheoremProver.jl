@@ -4,7 +4,9 @@ mutable struct RittWuProof{S} <: AbstractGeometricProof
     coords::OrderedDict{Symbol, Coordinate}
     H::Vector{S}
     T::Vector{S}
-    res::Vector{Bool}
+    R::Matrix{S}
+    u::Vector{PolyVar{true}}
+    x::Vector{PolyVar{true}}
 end
 
 function show(io::IO, rwp::RittWuProof)
@@ -14,29 +16,27 @@ function show(io::IO, rwp::RittWuProof)
         println(io, P, " = ", c)
     end
     println("")
-    for (idx, p) in enumerate(rwp.res)
-        status = p ? "success" : "fail"
+    for (idx, p) in enumerate(eachcol(rwp.R))
+        status = iszero(first(p)) ? "success" : "fail"
         println(io, "Goal $idx: $status")
     end
 end
 
 function prove(hp::Hypothesis, th::Thesis, ::Type{RittWuMethod})
-    coords, x = assign_variables(hp)
+    coords, x, u = assign_variables(hp)
     H = [cc for c in hp.constraints for cc in algebry(c, coords)]
     G = [cc for c in th.constraints for cc in algebry(c, coords)]
     T = triangulize(copy(H), x)
-    res = Vector{Bool}(undef, length(G))
+
+    R = Matrix{eltype(T)}(undef, length(x) + 1, length(G))
     @inbounds for (idx, g) in enumerate(G)
-        R = successive_pseudodivisions(T, g, x)
-        res[idx] = iszero(R)
+        R[end, idx] = g
+        @inbounds for i in length(x):-1:1
+            R[i, idx] = pseudorem(R[i+1, idx], T[i], x[i])
+        end
     end
-    return RittWuProof(coords, H, T, res)
+
+    return RittWuProof(coords, H, T, R, u, x)
 end
 
-function successive_pseudodivisions(H, g, x)
-    R = g
-    @inbounds for i in length(H):-1:1
-        R = pseudorem(R, H[i], x[i])
-    end
-    return R
-end
+isproved(rwp::RittWuProof) = [iszero(first(p)) for p in eachcol(rwp.R)]

@@ -39,7 +39,7 @@
     p = prove(hp, th)
     @test p.coords[:A] == GTP.Coordinate(0, 0)
     @test p.coords[:A].y == 0
-    @test all(p.res)
+    @test all(isproved(p))
 
     # Properties of parallelogram
     hp1 = @hp begin
@@ -53,5 +53,5 @@
     end
 
     p = prove(hp1, th1)
-    @test p.res == [true, false]
+    @test isproved(p) == [true, false]
 end

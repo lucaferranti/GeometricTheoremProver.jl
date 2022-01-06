@@ -66,5 +66,5 @@ function assign_variables(hp::Hypothesis)
             end
         end
     end
-    return point2var, x
+    return point2var, x, u
 end
