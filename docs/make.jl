@@ -14,7 +14,8 @@ makedocs(;
         assets=String[],
     ),
     pages=[
-        "Home" => "index.md"
+        "Home" => "index.md",
+        "Tutorial" => "write_statements.md",
         "API docs" => [
             "API" => "api.md",
             "Language specification" => "language.md"
@@ -24,4 +25,6 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/lucaferranti/GeometricTheoremProver.jl",
+    devbranch="main",
+    push_preview=true
 )

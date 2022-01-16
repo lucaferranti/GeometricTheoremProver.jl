@@ -14,6 +14,8 @@ This document lists the statements allowed in the GeometricTheoremProver DSL, de
 |H := A ↓ Segment(B, C)              | A B C free, H dependent           | H ∈ BC, AH ⟂ BC                             |
 |M := Midpoint(A, B)                 | A B free, M dependent             | M = midpoint(A, B)                          |
 |M := Segment(A, B) ∩ Segment(C, D)  | A B C D free, M dependent         | M ∈ AB, M ∈ CD                              |
+|O := Circle(A, B, C)                | A B C free, O dependent           | OA ≅ OB ≅ OC                                |
+|P := P ∈ Circle(O, A)               | O A free, P semifree              | OA ≅ OP                                     |
 
 If the point already exists and the statement tries to add the point again, the behavior is detemined by the next table
 
@@ -33,11 +35,11 @@ NOTES:
   ```
   P := Segment(A, B) ⟂ Segment(A, P)
   ```
-  creates a point P constraints to lie on the line perpendicular to AB and passing through A, hence it only has one DoF, i.e. it is semifree. Adding the constraint
+  creates a point P constrained to lie on the line perpendicular to AB and passing through A. There are infinitely many candidates, but not all points in the plane are good candidates, hence the point is semifree. Adding the constraint
   ```
   P := Segment(A, B) ≅ Segment(A, P)
   ```
-  further constraints the point to have distance from A equal to AB, now the point is uniquely defined by two constraints and hence it is dependent.
+  further constraints the point to have distance from A equal to AB. As there are not infinitely many candidates, the point is dependent.
 
 - The semifree + semifree = dependent does not check for possibly contradicting statements, for example if you type
   ```
