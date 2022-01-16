@@ -19,11 +19,11 @@ function show(io::IO, rwp::RittWuProof)
         status = iszero(first(p)) ? "success" : "fail"
         println(io, "Goal $idx: $status")
     end
-    println("\nNondegeneracy conditions:")
-    println("-------------------------")
+    println(io, "\nNondegeneracy conditions:")
+    println(io, "-------------------------")
     for c in ndg(rwp)
         show(io, c)
-        println()
+        println(io, " ≠ 0")
     end
 end
 
