@@ -148,9 +148,10 @@ julia> prove(hp, th)
 Assigned coordinates:
 ---------------------
 A = (0, 0)
-B = (u[1], 0)
-C = (u[2], u[3])
-D = (x[1], x[2])
+B = (u₁, 0)
+C = (u₂, u₃)
+D = (x₁, x₂)
+
 Goal 1: success
 
 Nondegeneracy conditions:

@@ -76,13 +76,14 @@ prove(hp, th)
 Assigned coordinates:
 ---------------------
 A = (0, 0)
-B = (u[1], 0)
-C = (x[1], u[2])
-M₁ = (x[2], x[3])
-M₂ = (x[4], x[5])
-M₃ = (x[6], x[7])
-H = (x[8], x[9])
-O = (x[10], x[11])
+B = (u₁, 0)
+C = (x₁, u₂)
+M₁ = (x₂, x₃)
+M₂ = (x₄, x₅)
+M₃ = (x₆, x₇)
+H = (x₈, x₉)
+O = (x₁₀, x₁₁)
+
 Goal 1: success
 
 Nondegeneracy conditions:
@@ -113,5 +114,5 @@ u₂ ≠ 0
 [ci-img]: https://github.com/lucaferranti/GeometricTheoremProver.jl/workflows/CI/badge.svg
 [ci-url]: https://github.com/lucaferranti/GeometricTheoremProver.jl/actions
 
-[cov-img]: https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl/branch/master/graph/badge.svg
+[cov-img]: https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl/branch/main/graph/badge.svg?token=EzyZPusnKj
 [cov-url]: https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl

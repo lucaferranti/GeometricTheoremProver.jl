@@ -15,6 +15,7 @@ function show(io::IO, rwp::RittWuProof)
     for (P, c) in rwp.coords
         println(io, P, " = ", c)
     end
+    println(io)
     for (idx, p) in enumerate(eachcol(rwp.R))
         status = iszero(first(p)) ? "success" : "fail"
         println(io, "Goal $idx: $status")

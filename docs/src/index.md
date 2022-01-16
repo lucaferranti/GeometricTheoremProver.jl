@@ -1,6 +1,6 @@
 # GeometricTheoremProver
 
-[![license: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](../../LICENSE)[![CI](https://github.com/lucaferranti/GeometricTheoremProver.jl/workflows/CI/badge.svg)](https://github.com/lucaferranti/GeometricTheoremProver.jl/actions)[![codecov](https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl)
+[![license: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](../../LICENSE)[![CI](https://github.com/lucaferranti/GeometricTheoremProver.jl/workflows/CI/badge.svg)](https://github.com/lucaferranti/GeometricTheoremProver.jl/actions)[![codecov](https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl/branch/main/graph/badge.svg?token=EzyZPusnKj)](https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl)
 
 ## Overview
 
@@ -76,13 +76,14 @@ prove(hp, th)
 Assigned coordinates:
 ---------------------
 A = (0, 0)
-B = (u[1], 0)
-C = (x[1], u[2])
-M₁ = (x[2], x[3])
-M₂ = (x[4], x[5])
-M₃ = (x[6], x[7])
-H = (x[8], x[9])
-O = (x[10], x[11])
+B = (u₁, 0)
+C = (x₁, u₂)
+M₁ = (x₂, x₃)
+M₂ = (x₄, x₅)
+M₃ = (x₆, x₇)
+H = (x₈, x₉)
+O = (x₁₀, x₁₁)
+
 Goal 1: success
 
 Nondegeneracy conditions:

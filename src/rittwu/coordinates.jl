@@ -2,7 +2,13 @@ struct Coordinate{T, S}
     x::T
     y::S
 end
-show(io::IO, c::Coordinate) = print(io, "(", c.x, ", ", c.y, ")")
+function show(io::IO, c::Coordinate)
+    print(io, "(")
+    show(io, c.x)
+    print(io, ", ")
+    show(io, c.y)
+    print(io, ")")
+end
 
 function compute_num_variables(hp::Hypothesis)
     total_free = 0
