@@ -71,4 +71,11 @@
 
     p = prove(hp, th)
     @test isproved(p) == [true, false]
+
+    thm = Theorem(hp, th)
+    @test thm isa Theorem{GTP.NoProof}
+    @test !isproved(thm)
+
+    thm = prove(thm)
+    @test isproved(thm) == [true, false]
 end

@@ -101,8 +101,13 @@ end
 abstract type AbstractGeometricProver end
 abstract type AbstractGeometricProof end
 
+struct NoProof <: AbstractGeometricProof end
+show(io::IO, ::NoProof) = println(io, "PROOF:\n------\nProof missing")
+isproved(::NoProof) = false
+
 """
     prove(hp::Hypothesis, th::Thesis[, method=RittWuMethod])
+    prove(theorem::Theorem[, method=RittWuMethod])
 
 Proves a thereom with given hypothesis `hp` and thesis `th`.
 
@@ -111,6 +116,9 @@ Proves a thereom with given hypothesis `hp` and thesis `th`.
 - `hp::Hypothesis`                  -- hypothesis of the theorem
 - `th::Thesis`                      -- thesis of the theorem
 - `method<:AbstractGeometricProver` -- method to prove the theorem, default `RittWuMethod`.
+
+Alternatively, instead of passing hypothesis and thesis as two distinct parameters, it is
+possible to pass them together as a Theorem object.
 
 ### Output
 
@@ -159,3 +167,26 @@ Nondegeneracy conditions:
 ```
 """
 prove(hp::Hypothesis, th::Thesis) = prove(hp, th, RittWuMethod)
+
+#####################
+# Theorem interface #
+#####################
+struct Theorem{T<:AbstractGeometricProof}
+    hp::Hypothesis
+    th::Thesis
+    p::T
+end
+
+function show(io::IO, thm::Theorem)
+    show(io, thm.hp)
+    println(io)
+    show(io, thm.th)
+    println(io)
+    show(io, thm.p)
+end
+
+Theorem(hp::Hypothesis, th::Thesis) = Theorem(hp, th, NoProof())
+
+prove(t::Theorem, prover=RittWuMethod) = Theorem(t.hp, t.th, prove(t.hp, t.th, prover))
+
+isproved(t::Theorem) = isproved(t.p)
