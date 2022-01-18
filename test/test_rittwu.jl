@@ -78,4 +78,6 @@
 
     thm = prove(thm)
     @test isproved(thm) == [true, false]
+
+    @test string(thm) == "POINTS:\n------------\nA : free\nB : free\nC : free\nD : dependent by (1)\nO : dependent by (2)\n\nHYPOTHESIS:\n------------\n(1) ABCD parallelogram\n(2) O = AC ∩ BD\n\nTHESIS:\n------------\nAO ≅ OC\nAB ∥ AC\n\nAssigned coordinates:\n---------------------\nA = (0, 0)\nB = (u₁, 0)\nC = (u₂, u₃)\nD = (x₁, x₂)\nO = (x₃, x₄)\n\nGoal 1: success\nGoal 2: fail\n\nNondegeneracy conditions:\n-------------------------\nu₁u₃ + u₂x₂ - u₃x₁ ≠ 0\n-u₁ + x₁ ≠ 0\n"
 end
