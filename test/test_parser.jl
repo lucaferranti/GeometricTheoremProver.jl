@@ -63,6 +63,23 @@
 
     th = @th P ∈ Segment(C, D)
     @test th.constraints == [Appartenence(:P, CD)]
+    @test string(th) == "THESIS:\n------------\nP ∈ CD\n"
+end
+
+@testset begin "test printing"
+    hp = @hp begin
+        points(A, B, C)
+        C := Segment(A, B) ⟂ Segment(A, C)
+        M₁ := Midpoint(A, B)
+        M₂ := Midpoint(A, C)
+        M₃ := Midpoint(B, C)
+        H := A ↓ Segment(B, C)
+        O := Circle(M₁, M₂, M₃)
+    end
+
+    th = @th H ∈ circle(O, M₁)
+    @test string(Theorem(hp, th)) == "POINTS:\n------------\nA : free\nB : free\nC : semifree by (1)\nM₁ : dependent by (2)\nM₂ : dependent by (3)\nM₃ : dependent by (4)\nH : dependent by (5)\nO : dependent by (6)\n\nHYPOTHESIS:\n------------\n(1) AB ⟂ AC\n(2) M₁ ∈ AB ∧ AM₁ ≅ M₁B\n(3) M₂ ∈ AC ∧ AM₂ ≅ M₂C\n(4) M₃ ∈ BC ∧ BM₃ ≅ M₃C\n(5) H ∈ BC ∧ AH ⟂ BC\n(6) OM₁ ≅ OM₂ ≅ OM₃\n\nTHESIS:\n------------\nOH ≅ OM₁\n\nPROOF:\n------\nProof missing\n"
+
 end
 
 @testset "parse multiple statements" begin

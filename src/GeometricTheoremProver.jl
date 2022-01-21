@@ -5,7 +5,7 @@ import Base: show
 using DynamicPolynomials
 using OrderedCollections
 
-export @hp, @th, prove, Coordinate, RittWuMethod, isproved, ndg
+export @hp, @th, Theorem, prove, Coordinate, RittWuMethod, isproved, ndg
 
 include("geometry/primitives.jl")
 include("geometry/constraints.jl")
