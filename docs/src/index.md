@@ -4,9 +4,9 @@
 
 ## Overview
 
-A Julia Package that can prove theorems in Euclidean geometry using the Ritt-Wu method. 
+A Julia package that can prove theorems in Euclidean geometry. Currently, it supports only Ritt-Wu method. For a brief overview check [this video](https://www.youtube.com/watch?v=q_08LE4UOU8) at JuliaCon2022.
 
-## Quickstart
+## Installation
 
 Install the package with
 
@@ -20,7 +20,11 @@ then import the package with
 julia> using GeometricTheoremProver
 ```
 
-now you are ready to prove your first theorem. Let us prove that Apollonius circle theorem. First we state hypothesis and thesis
+now you are ready to go. 
+
+## Quickstart Example
+
+Let us prove that Apollonius circle theorem. First we state hypothesis and thesis
 
 ```julia
 hp = @hp begin
@@ -95,6 +99,17 @@ u₂ ≠ 0
 -2x₃ + 2x₇ ≠ 0
 ```
 
-## Author
+## Contributing
 
-- [Luca Ferranti](https://lucaferranti.github.io)
+If you spot something strange (something doesn't work or doesn't behave as expected), please open a bug issue.
+
+If have an improvement idea (a new feature, a new piece of documentation, an improvement of an existing feature), you can open an enhancement issue.
+
+If you feel like your issue does not fit any of the above mentioned templates (e.g. you just want to ask something), you can also open a blank issue.
+
+Pull requests are also very welcome! For small fixes, feel free to open a PR directly. For bigger changes, it might be wise to open an issue first.
+
+## Acknowledgement
+
+- **Author**: [Luca Ferranti](https://lucaferranti.github.io)
+- **License**: MIT
