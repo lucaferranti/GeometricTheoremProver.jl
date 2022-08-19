@@ -1,12 +1,14 @@
 # GeometricTheoremProver
 
-[![license: MIT][mit-img]](LICENSE)[![CI][ci-img]][ci-url][![codecov][cov-img]][cov-url][![doc-dev][dev-img]][dev-url]
+| **Pkg Info** | **Build status** | **Documentation** | **Citation** | **Contributing** |
+|:------------:|:----------------:|:-----------------:|:------------:|:----------------:|
+|[![version][ver-img]][ver-url][![license: MIT][mit-img]](LICENSE)|[![CI][ci-img]][ci-url][![codecov][cov-img]][cov-url]|[![docs-stable][stable-img]][stable-url][![docs-dev][dev-img]][dev-url]|[![zenodo][doi-img]][doi-url]| [![contributions guidelines][contrib-img]][contrib-url]|
 
 ## Overview
 
-A Julia Package that can prove theorems in Euclidean geometry using the Ritt-Wu method. 
+A Julia package that can prove theorems in Euclidean geometry. Currently, it supports only Ritt-Wu method. For a brief overview check [this video](https://www.youtube.com/watch?v=q_08LE4UOU8) at JuliaCon2022.
 
-## Quickstart
+## Installation
 
 Install the package with
 
@@ -20,7 +22,16 @@ then import the package with
 julia> using GeometricTheoremProver
 ```
 
-now you are ready to prove your first theorem. Let us prove that Apollonius circle theorem. First we state hypothesis and thesis
+now you are ready to go. 
+
+## Documentation
+
+- [**STABLE**][stable-url] -- Documentation of the latest release
+- [**DEV**][dev-url] -- Documentation of the current version on main
+
+## Quickstart Example
+
+Let us prove that Apollonius circle theorem. First we state hypothesis and thesis
 
 ```julia
 hp = @hp begin
@@ -95,13 +106,23 @@ u₂ ≠ 0
 -2x₃ + 2x₇ ≠ 0
 ```
 
-## Documentation
+## Contributing
 
-- [**DEV**][dev-url] -- Documentation of the current version on main
+If you spot something strange (something doesn't work or doesn't behave as expected), please open a bug issue.
 
-## Author
+If have an improvement idea (a new feature, a new piece of documentation, an improvement of an existing feature), you can open an enhancement issue.
 
-- [Luca Ferranti](https://lucaferranti.github.io)
+If you feel like your issue does not fit any of the above mentioned templates (e.g. you just want to ask something), you can also open a blank issue.
+
+Pull requests are also very welcome! For small fixes, feel free to open a PR directly. For bigger changes, it might be wise to open an issue first.
+
+## Acknowledgement
+
+- **Author**: [Luca Ferranti](https://lucaferranti.github.io)
+- **License**: MIT
+
+[ver-img]: https://img.shields.io/github/v/release/lucaferranti/GeometricTheoremProver.jl
+[ver-url]: https://github.com/lucaferranti/GeometricTheoremProver.jl/releases
 
 [mit-img]: https://img.shields.io/badge/license-MIT-yellow.svg
 
@@ -116,3 +137,7 @@ u₂ ≠ 0
 
 [cov-img]: https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl/branch/main/graph/badge.svg?token=EzyZPusnKj
 [cov-url]: https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl
+
+[doi-img]: https://img.shields.io/badge/zenodo-DOI-blue
+[doi-url]: https://doi.org/10.5281/zenodo.5879637
+
