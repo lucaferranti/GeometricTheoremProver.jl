@@ -19,7 +19,8 @@ makedocs(;
         "API docs" => [
             "API" => "api.md",
             "Language specification" => "language.md"
-        ]
+        ],
+        "Contributing" => "CONTRIBUTING.md"
     ],
 )
 
