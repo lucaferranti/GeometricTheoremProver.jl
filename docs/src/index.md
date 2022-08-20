@@ -1,4 +1,4 @@
-# GeometricTheoremProver
+# GeometricTheoremProver.jl
 
 [![license: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](../../LICENSE)[![CI](https://github.com/lucaferranti/GeometricTheoremProver.jl/workflows/CI/badge.svg)](https://github.com/lucaferranti/GeometricTheoremProver.jl/actions)[![codecov](https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl/branch/main/graph/badge.svg?token=EzyZPusnKj)](https://codecov.io/gh/lucaferranti/GeometricTheoremProver.jl)
 
