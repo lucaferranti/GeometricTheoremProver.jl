@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Tutorial · GeometricTheoremProver.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link rel="canonical" href="https://lucaferranti.github.io/GeometricTheoremProver.jl/write_statements/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">GeometricTheoremProver.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Tutorial</a><ul class="internal"><li><a class="tocitem" href="#Introduction"><span>Introduction</span></a></li><li><a class="tocitem" href="#Writing-hypothesis"><span>Writing hypothesis</span></a></li><li><a class="tocitem" href="#Writing-Thesis"><span>Writing Thesis</span></a></li><li><a class="tocitem" href="#Proving-the-theorem"><span>Proving the theorem</span></a></li></ul></li><li><span class="tocitem">API docs</span><ul><li><a class="tocitem" href="../api/">API</a></li><li><a class="tocitem" href="../language/">Language specification</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Tutorial</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Tutorial</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/lucaferranti/GeometricTheoremProver.jl/blob/main/docs/src/write_statements.md#" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="First-Theorem"><a class="docs-heading-anchor" href="#First-Theorem">First Theorem</a><a id="First-Theorem-1"></a><a class="docs-heading-anchor-permalink" href="#First-Theorem" title="Permalink"></a></h1><p>This is a beginner tutorial to GeometricTheoremProver.jl. To follow along, you need to install the package with</p><pre><code class="language-julia hljs">using Pkg; Pkg.add(&quot;GeometricTheoremProver&quot;)</code></pre><p>Then you can import the package with</p><pre><code class="language-julia hljs">using GeometricTheoremProver</code></pre><h2 id="Introduction"><a class="docs-heading-anchor" href="#Introduction">Introduction</a><a id="Introduction-1"></a><a class="docs-heading-anchor-permalink" href="#Introduction" title="Permalink"></a></h2><p>Generally speaking, a theorem is composed by two parts: a <em>hypothesis</em>, that is a set of statements assumed to hold and a <em>thesis</em>, that is a set of statements to be derived from the hypothesis and the axioms of the theory we are working in.</p><p>Theorems in Euclidean geometry involve geometric entities such as points, lines, circles etc. The hypothesis of the theorem can also be thought as a set of <em>constraints</em> on the points. This can be seen as a set of constructions steps to draw the figure of the theorem. For example the constraint <code>P ∈ Segment(A, B)</code> can be read as <em>take a point P on the Segment AB</em>, this sets some restrictions on what points in the plane we can choose for <span>$P$</span>.</p><p>A point can be</p><ul><li><strong>free</strong>: any point in the plane satisfies the statement.</li><li><strong>semifree</strong>: there are infinitely many points satisfying the given statement, but not all points in the plane do. Thinking of the Cartesian plane as model for Euclidean geometry, this means that one coordinate can be freely chosen, but the other is then uniquely determined.</li><li><strong>dependent</strong>: There is a finite number of points satisfying the given statement.</li></ul><p>With this interpretation, we say that points are introduced by a series of construction steps. These steps form the hypothesis of the theorem</p><h2 id="Writing-hypothesis"><a class="docs-heading-anchor" href="#Writing-hypothesis">Writing hypothesis</a><a id="Writing-hypothesis-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-hypothesis" title="Permalink"></a></h2><p>The hypothesis is written using the <a href="../api/#GeometricTheoremProver.@hp-Tuple{Any}"><code>@hp</code></a> macro. The macro can be followed by a single expression of by a <code>begin ... end</code> block containing multiple expressions.</p><p>Free points can be introduced with the <code>points</code> function. For example,</p><pre><code class="language-julia hljs">@hp points(A, B, C)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">POINTS:
+------------
+A : free
+B : free
+C : free
+
+HYPOTHESIS:
+------------
+</code></pre><p>As we can see, this introduces the free points <code>A, B, C</code>. Since all points are free, there are no constraints in this case.</p><p>The general syntax to write constraint is</p><pre><code class="nohighlight hljs">P := constraint</code></pre><p>this can be read as <em>Let P so that constraint</em>. As you can see, you need to explicitly specify what point is introduced by the constraint. For example</p><pre><code class="language-julia hljs">@hp P := P ∈ Segment(A, B)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">POINTS:
+------------
+P : semifree by (1)
+A : free
+B : free
+
+HYPOTHESIS:
+------------
+(1) P ∈ AB
+</code></pre><p>Now the hypothesis shows that <code>P</code> is semifree and constrained by statement number (1). Note also that points <code>A</code> and <code>B</code> are automatically introduced as free, even without calling <code>points(A, B)</code>. In general given a statement <code>P := constraint</code>, the package will add <code>P</code> as dependent or semifree (depending on the constraint) and all the other points will be added as free if they don&#39;t exist already. Let us see a bigger example</p><pre><code class="language-julia hljs">@hp begin
+    M := Midpoint(A, B)
+    P := Segment(P, M) ⟂ Segment(A, B)
+    P := Segment(P, M) ≅ Segment(A, M)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">POINTS:
+------------
+A : free
+B : free
+M : dependent by (1)
+P : dependent by (2, 3)
+
+HYPOTHESIS:
+------------
+(1) M ∈ AB ∧ AM ≅ MB
+(2) PM ⟂ AB
+(3) PM ≅ AM
+</code></pre><p>This is basically taking a point <code>P</code> on the perpendicular bisector of <code>AB</code>. Let us now notice a few things</p><ul><li>The midpoint of a segment is uniquely defined, hence the statement <code>M := Midpoint(A, B)</code> introduces <code>M</code> as dependent.</li><li>The second statement <code>P := Segment(P, M) ⟂ Segment(A, B)</code> takes a point <code>P</code> on the perpendicular bisector of <code>AB</code>. Since the point is not uniquely defined by this statement alone, <code>P</code> would be semifree</li><li>The next statement, however, <code>P := Segment(P, M) ≅ Segment(A, M)</code> adds an additional constraint on <code>P</code>, after which <code>P</code> is uniquely defined and hence it is displayed as dependent, constrained by equations (1) and (2).</li></ul><p>If you specify a point as semifree by two distinct constraints, the package &quot;sums&quot; the two constraints and marks the point as dependent.</p><p>The package also prevents you from adding too many constraints to a point, for example the follow would result in an error.</p><pre><code class="language-julia hljs">@hp begin
+  points(A, B, C)
+  M := Midpont(A, B)
+  M := Segment(A, B) ⟂ Segment(C, M)
+end</code></pre><pre><code class="nohighlight hljs">ERROR: LoadError: ArgumentError: Cannot add statement (2) to point already defined as dependent by (1)</code></pre><p>The constraints <code>M := Midpoint(A, B)</code> already defined uniquely the point <code>M</code>, any extra constraint will be either redundant or contradictory.</p><p>A list of all allowed constraints and a full description of the &quot;point status algebra&quot; can be found <a href="../language/">here</a>.</p><h2 id="Writing-Thesis"><a class="docs-heading-anchor" href="#Writing-Thesis">Writing Thesis</a><a id="Writing-Thesis-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-Thesis" title="Permalink"></a></h2><p>A thesis is created with the <a href="../api/#GeometricTheoremProver.@th-Tuple{Any}"><code>@th</code></a> macro, followed by a single expression or a <code>begin ... end</code> block. The same constraint syntax used in the hypothesis applies for the thesis, except that now we don&#39;t have the <code>P :=</code> part, as the thesis does not introduce new points. A couple of examples</p><pre><code class="language-julia hljs">@th Segment(A, B) ⟂ Segment(C, D)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">THESIS:
+------------
+AB ⟂ CD
+</code></pre><pre><code class="language-julia hljs">@th begin
+    Segment(A, O) ≅ Segment(O, C)
+    Segment(B, O) ≅ Segment(O, D)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">THESIS:
+------------
+AO ≅ OC
+BO ≅ OD
+</code></pre><h2 id="Proving-the-theorem"><a class="docs-heading-anchor" href="#Proving-the-theorem">Proving the theorem</a><a id="Proving-the-theorem-1"></a><a class="docs-heading-anchor-permalink" href="#Proving-the-theorem" title="Permalink"></a></h2><p>After you have written the hypothesis and thesis, you can prove the theorem with the <a href="../api/#GeometricTheoremProver.prove-Tuple{GeometricTheoremProver.Hypothesis, GeometricTheoremProver.Thesis}"><code>prove</code></a> function. At the moment, only simple Ritt-Wu method is supported. As an example, let us see the Apollonius circle theorem. We choose this theorem because it is a nice show-case, as it uses most of the expressions allowed in the package</p><pre><code class="language-julia hljs">hp = @hp begin
+        points(A, B, C)
+        C  := Segment(A, B) ⟂ Segment(A, C)
+        M₁ := Midpoint(A, B)
+        M₂ := Midpoint(A, C)
+        M₃ := Midpoint(B, C)
+        H  := A ↓ Segment(B, C) # H is the projection of A to the segment BC
+        O  := Circle(M₁, M₂, M₃)
+    end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">POINTS:
+------------
+A : free
+B : free
+C : semifree by (1)
+M₁ : dependent by (2)
+M₂ : dependent by (3)
+M₃ : dependent by (4)
+H : dependent by (5)
+O : dependent by (6)
+
+HYPOTHESIS:
+------------
+(1) AB ⟂ AC
+(2) M₁ ∈ AB ∧ AM₁ ≅ M₁B
+(3) M₂ ∈ AC ∧ AM₂ ≅ M₂C
+(4) M₃ ∈ BC ∧ BM₃ ≅ M₃C
+(5) H ∈ BC ∧ AH ⟂ BC
+(6) OM₁ ≅ OM₂ ≅ OM₃
+</code></pre><pre><code class="language-julia hljs">th = @th H ∈ circle(O, M₁)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">THESIS:
+------------
+OH ≅ OM₁
+</code></pre><pre><code class="language-julia hljs">p = prove(hp, th)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Assigned coordinates:
+---------------------
+A = (0, 0)
+B = (u₁, 0)
+C = (x₁, u₂)
+M₁ = (x₂, x₃)
+M₂ = (x₄, x₅)
+M₃ = (x₆, x₇)
+H = (x₈, x₉)
+O = (x₁₀, x₁₁)
+
+Goal 1: success
+
+Nondegeneracy conditions:
+-------------------------
+u₁ ≠ 0
+-u₁² + 2u₁x₁ - u₂² - x₁² ≠ 0
+u₂ ≠ 0
+4x₂x₅ - 4x₂x₇ - 4x₃x₄ + 4x₃x₆ + 4x₄x₇ - 4x₅x₆ ≠ 0
+-2x₃ + 2x₇ ≠ 0
+</code></pre><p>Ritt-Wu method is an algebraic method, which means that it first assigns some coordinates to the points and then translates the statements to polynomial equations. Free coordinates are denoted by the letter <code>u</code> and dependent coordinates by <code>x</code>.</p><p>Proving the theorem now &quot;simply&quot; means doing some operations on the polynomials. Since the proof is a bunch of calculations, it is generally not that interesting to read, hence by default it is only displayed whether the thesis could be successfully proved or not.</p><p>The proof also shows the <em>non-degeneracy conditions</em>. When we construct a triangle with vertices, <span>$A, B, C$</span> we are generally interested in &quot;proper triangles&quot;, that is the three vertices are distinct and not on the same line. Otherwise we say we have a <em>degenerate case</em>, in which case the theorem may not hold. However, we are generally interested only in the non-degenerate case and hence the algorithm also computes some extra hypotheses called <em>degeneracy conditions</em> needed for the theorem to hold. If a theorem holds under some non-degeneracy conditions, we say that the thesis <em>follows generally</em> from the hypothesis. If the thesis always follows from the hypothesis, even in possible degenerate cases, we say that the thesis <em>follows strictly</em> from the hypothesis.</p><p>As an illustrative example, let us look closer at the obtained conditis</p><ol><li><p class="math-container">\[u_1 \neq 0\]</p>Recalling that <span>$A$</span> is at the origin and <span>$B$</span> had coordinates <span>$(u_1, 0)$</span>, the condition is equivalent to <span>$A \nequiv B$</span>.</li><li><p class="math-container">\[-u_1^2+2u_1x_1-u_2^2-x_1^2\neq 0\]</p>With a small rewriting the corresponding degeneracy condition is <span>$(u_1-x_1)^2+u_2^2=0$</span>, since we are working with real variables this is equivalent to <span>$u_1 = x_1 \land u_2=0$</span> whence the coordinates of <span>$C$</span> become <span>$(u_1, 0)$</span>, which are the same of <span>$B$</span>. Hence the non-degeneracy condition is equivalent to <span>$B \nequiv C$</span>.</li></ol><p>In general, figuring out the geometrical interpretation of the algebraic non-degeneracy conditions can be pretty challenging.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.22 on <span class="colophon-date" title="Friday 19 August 2022 07:51">Friday 19 August 2022</span>. Using Julia version 1.8.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
