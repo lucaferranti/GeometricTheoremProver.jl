@@ -137,6 +137,6 @@ The proof also shows the *non-degeneracy conditions*. When we construct a triang
 As an illustrative example, let us look closer at the obtained conditis
 
 1. $$u_1 \neq 0$$ Recalling that $$A$$ is at the origin and $$B$$ had coordinates $$(u_1, 0)$$, the condition is equivalent to $$A \nequiv B$$.
-2. $$-u_1^2+2u_1x_1-u_2^2-x_1^2\neq 0$$ With a small rewriting the corresponding degeneracy condition is $$(u_1-x_1)^2+u_2^2=0$$, since we are working with real variables this is equivalent to $$u_1 = x_1 \land u_2=0$$ whence the coordinates of $$C$$ become $$(u_1, 0)$$, which are the same of $$B$$. Hence the non-degeneracy condition is equivalent to $$B \nequiv C$$.
+2. $$-u_1^2+2u_1x_1-u_2^2-x_1^2\neq 0$$ With a small rewriting the corresponding degeneracy condition is $$(u_1-x_1)^2+u_2^2=0$$, since we are working with real variables this is equivalent to $$u_1 = x_1 \land u_2=0$$ whence the coordinates of $$C$$ become $$(u_1, 0)$$, which are the same of $$B$$. Hence the non-degeneracy condition is equivalent to $$B \not\equiv  C$$.
 
 In general, figuring out the geometrical interpretation of the algebraic non-degeneracy conditions can be pretty challenging.
